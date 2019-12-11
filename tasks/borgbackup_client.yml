@@ -100,6 +100,7 @@
     state: present
     cron_file: "borgbackup_backup"
   with_items: "{{ borgbackup_client_jobs }}"
+  when: borgbackup_client_use_cron
 
 - name: deploy prune scripts
   template:
@@ -122,4 +123,4 @@
     state: present
     cron_file: "borgbackup_prune"
   with_items: "{{ borgbackup_prune_jobs }}"
-  when: borgbackup_prune_enabled
+  when: borgbackup_prune_enabled and borgbackup_client_use_cron
